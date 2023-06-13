@@ -3,6 +3,7 @@ const passport = require('passport');
 const { MultiSamlStrategy } = require('@node-saml/passport-saml');
 
 const pubcert = fs.readFileSync("./pubcert.pem", "utf-8")
+const privkey = fs.readFileSync("./rsaprivkey.pem", "utf-8")
 
 passport.serializeUser((user, done) => {
   done(null, user);
@@ -40,6 +41,7 @@ const strategy = new MultiSamlStrategy(
       callbackUrl: process.env.SAML_CALLBACK_URL, 
       cert: pubcert, // cert must be provided 
       signatureAlgorithm: 'sha256',
+      privateKey: privkey,
       identifierFormat: 'urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress',
       getSamlOptions: function (request, done) {
         findProvider(request, function (err, provider) {
