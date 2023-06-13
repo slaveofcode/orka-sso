@@ -29,7 +29,8 @@ app.post('/login/sso/callback',
 
 app.get('/login/sso', passport.authenticate('myMultiSaml', {
   successRedirect: '/login/success',
-  failureRedirect: '/login/failed'
+  failureRedirect: '/login/failed',
+  additionalParams: { provider: 'jumpcloud'}
 }))
 
 app.get('/login/success', (req, res) => {

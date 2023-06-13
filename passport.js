@@ -43,6 +43,8 @@ const strategy = new MultiSamlStrategy(
       cert: pubcert, // cert must be provided 
       signatureAlgorithm: 'sha256',
       privateKey: privkey,
+      wantAssertionsSigned: false,
+      wantAuthnResponseSigned: false,
       identifierFormat: 'urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress',
       getSamlOptions: function (request, done) {
         findProvider(request, function (err, provider) {
