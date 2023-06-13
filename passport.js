@@ -3,7 +3,7 @@ const passport = require('passport');
 const { MultiSamlStrategy } = require('@node-saml/passport-saml');
 
 const pubcert = fs.readFileSync("./pubcert.pem", "utf-8")
-const privkey = fs.readFileSync("./rsaprivkey.pem", "utf-8")
+const privkey = fs.readFileSync("./private.pem", "utf-8")
 
 passport.serializeUser((user, done) => {
   done(null, user);
