@@ -7,6 +7,8 @@ const app = new express();
 
 const sessConfig = {
   secret: process.env.SESSION_SECRET_KEY || 'im a flying panda',
+  resave: false,
+  saveUninitialized: true,
   cookie: {}
 }
 
