@@ -19,7 +19,7 @@ app.get('/ping', (req, res) => {
 });
 
 app.post('/login/sso/callback',
-  passport.authenticate('saml', {
+  passport.authenticate('myMultiSaml', {
     failureRedirect: '/login/failed',
     failureFlash: true,
   }),
@@ -27,7 +27,7 @@ app.post('/login/sso/callback',
   res.send('OK')
 })
 
-app.get('/login/sso', passport.authenticate('saml', {
+app.get('/login/sso', passport.authenticate('myMultiSaml', {
   successRedirect: '/login/success',
   failureRedirect: '/login/failed'
 }))

@@ -14,7 +14,7 @@ passport.deserializeUser((user, done) => {
 });
 
 function findProvider(req, cb) {
-  console.log('findProvider params:', req.params);
+  console.log('findProvider', req);
   const orgId = req.params.id;
 
   // TODO: find orgId on DB
@@ -37,6 +37,7 @@ const strategy = new MultiSamlStrategy(
       passReqToCallback: true,
       entryPoint: process.env.SAML_ENTRYPOINT,
       issuer: "passport-saml",
+      audience: 'orka',
       //callbackUrl: "https://sso.orka.land/login/sso/callback",
       callbackUrl: process.env.SAML_CALLBACK_URL, 
       cert: pubcert, // cert must be provided 
@@ -73,7 +74,7 @@ const strategy = new MultiSamlStrategy(
   )
 
 
-passport.use(strategy);
+passport.use('myMultiSaml', strategy);
 
 module.exports = passport;
 
