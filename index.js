@@ -22,7 +22,7 @@ app.use(express.urlencoded({
   extended: true,
 }));
 app.use(express.json({ limit: '15mb' }));
-app.use(session(sessConfig))
+app.use(session(sessConfig)) // enable if `passReqToCallback` is `true` and `session` is `true`
 app.use(passport.initialize());
 //app.use(passport.session());
 
@@ -35,6 +35,7 @@ app.get('/ping', (req, res) => {
 
 app.post('/login/sso/callback',
   passport.authenticate('myMultiSaml', {
+    successRedirect: '/login/success',
     failureRedirect: '/login/failed',
     failureFlash: true,
   }),
@@ -43,18 +44,20 @@ app.post('/login/sso/callback',
 })
 
 app.get('/login/sso', passport.authenticate('myMultiSaml', {
-  successRedirect: '/login/success',
-  failureRedirect: '/login/failed',
-  additionalParams: { provider: 'jumpcloud'}
+  session: false,
+  // successRedirect: '/login/success',
+  // failureRedirect: '/login/failed',
 }))
 
 app.get('/login/success', (req, res) => {
-  res.send('SSO Success')
+  res.send('Login SSO Success')
 })
 
 app.get('/login/failed', (req, res) => {
-  res.send('SSO Failed')
+  res.send('Login SSO Failed')
 })
+
+console.log(`server started at :${process.env.SERVER_PORT}`)
 
 app.listen(process.env.SERVER_PORT);
 
