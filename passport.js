@@ -37,12 +37,12 @@ const providerConfig = {
 }
 
 function findProvider(req, cb) {
-  console.log('findProvider', req);
-  const orgId = req.params.id;
+  console.log('findProvider', req.params);
+  const providerName = req.params.provider;
 
   // TODO: find orgId on DB
 
-  cb(null, providerConfig.jumpcloud)
+  cb(null, providerConfig[providerName])
 }
 
 function findByEmail(email, cb) {
